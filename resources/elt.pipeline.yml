@@ -1,7 +1,7 @@
 resources:
   pipelines:
     etl_pipeline:
-      name: etl_pipeline
+      name: ${bundle.target}_etl_pipeline
       catalog: ${var.catalog}
       schema: ${var.schema}
       serverless: true

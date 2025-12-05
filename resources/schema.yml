@@ -1,0 +1,5 @@
+resources:
+  schemas:
+    demo_schema:
+      name: ${bundle.target}_schema_${workspace.current_user.short_name}
+      catalog_name: ${var.catalog}

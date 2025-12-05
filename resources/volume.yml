@@ -1,0 +1,6 @@
+resources:
+  volumes:
+    inputs:
+      name: inputs
+      catalog_name: ${var.catalog}
+      schema_name: ${var.schema}

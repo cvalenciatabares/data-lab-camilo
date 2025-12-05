@@ -1,0 +1,32 @@
+resources:
+  jobs:
+    etl_job:
+      name: ${bundle.target}_etl_job
+
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/${var.schema}/inputs/
+
+      email_notifications:
+        on_failure:
+          - ${var.personal_email}
+
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+        - name: schema
+          default: ${var.schema}
+
+      tasks:
+        - task_key: ingest
+          notebook_task:
+            notebook_path: ../src/create_table.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+
+        - task_key: dlt
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.etl_pipeline.id}
+          depends_on:
+            - ingest
